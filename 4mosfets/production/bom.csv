@@ -1,0 +1,7 @@
+﻿Designator,Footprint,Quantity,Value,LCSC Part #
+"D1, D2, D3, D4",D_SMA,4,SS14,
+J1,PinHeader_1x04_P2.54mm_Vertical,1,Conn_01x04_Pin,
+"J2, J3, J4, J5, J6",PinHeader_1x02_P2.54mm_Vertical,5,Conn_01x02_Pin,
+"Q1, Q2, Q3, Q4",SOT-23,4,AO3400A,
+"R1, R2, R3, R4",0805,4,220,
+"R5, R6, R7, R8",0805,4,10k,
