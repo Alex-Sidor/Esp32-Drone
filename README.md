@@ -1,3 +1,5 @@
+This drone is primarily being made as a integration with my motion tracking system
+
 my drone is comprised of
 * 4x 8520 brushless dc motors
 * 4x props (came with dc motors)
@@ -13,6 +15,7 @@ for the drone frame i used
 
 `https://www.thingiverse.com/thing:1221911`
 
-I wanted a quick print that i knew was going to work so i didn't design my own one
+
+Here is a picture of the designed pcb
 
 ![PCB](/github/PCB.png)
