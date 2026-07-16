@@ -686,13 +686,29 @@
         "uuid": "e38ea129-64a6-4691-9215-ea6cfafdc752"
       }
     ],
-    "used_designators": "Q1-4,R1-8,J1-6,D1-4",
+    "used_designators": "Q1-8,R1-16,J1-7,D1-8",
     "variants": []
   },
   "sheets": [
     [
       "e38ea129-64a6-4691-9215-ea6cfafdc752",
       "Root"
+    ],
+    [
+      "970e441a-7031-4d64-9e73-145ace876340",
+      "Mosfet Module"
+    ],
+    [
+      "a5bd7503-73c8-4507-bf16-e51f9fffcdca",
+      "Mosfet Module1"
+    ],
+    [
+      "46698c17-5ccd-4af1-bdca-6f2887627441",
+      "Mosfet Module2"
+    ],
+    [
+      "e72d4caf-427d-4b0c-b6f6-44fd61bc3343",
+      "Mosfet Module3"
     ]
   ],
   "text_variables": {},
