@@ -4,16 +4,6 @@ DroneMotors::DroneMotors(const gpio_num_t motorPins[4]){
     for(size_t i = 0; i < 4; i++){
         motors[i] = motorPins[i];
     }
-}
-
-void DroneMotors::initMotors() {
-
-    const ledc_channel_t channels[4] = {
-        LEDC_CHANNEL_0,
-        LEDC_CHANNEL_1,
-        LEDC_CHANNEL_2,
-        LEDC_CHANNEL_3
-    };
 
     ledc_timer_config_t ledc_timer = {
         .speed_mode       = LEDC_MODE,
@@ -47,7 +37,15 @@ void DroneMotors::testMotors(){
 }
 
 void DroneMotors::runMotors(Vec2 direciton, float thrust){
+    
+    thrust = minmax(thrust, 0, 1);
 
+    thrust *= LEDC_MAX_NUMBER;
+    
+    for(size_t i = 0; i < 4; i++){
+        ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, channels[i], static_cast<uint32_t>(thrust)));
+        ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, channels[i]));
+    }
 }
 
 float DroneMotors::min(float a, float b){

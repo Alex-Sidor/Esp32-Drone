@@ -14,10 +14,18 @@
 #define LEDC_MODE              LEDC_LOW_SPEED_MODE
 #define LEDC_CHANNEL           LEDC_CHANNEL_0
 #define LEDC_DUTY_RES          LEDC_TIMER_10_BIT
+#define LEDC_MAX_NUMBER        1023
 #define LEDC_FREQUENCY         (20000)
 
 class DroneMotors{
 public:
+
+    const ledc_channel_t channels[4] = {
+        LEDC_CHANNEL_0,
+        LEDC_CHANNEL_1,
+        LEDC_CHANNEL_2,
+        LEDC_CHANNEL_3
+    };
 
 /*
 
@@ -40,8 +48,6 @@ o 2     o 3
     float min(float a, float b);
     float max(float a, float b);
     float minmax(float input, float bottom, float top);
-
-    void initMotors();
 
 private:
 
