@@ -6,12 +6,15 @@
 
 #include "Vector.h"
 
-#define MOTOR_GPIO             (17) 
+#include <stdio.h>
+#include "driver/ledc.h"
+#include "esp_err.h"
+
 #define LEDC_TIMER             LEDC_TIMER_0
 #define LEDC_MODE              LEDC_LOW_SPEED_MODE
 #define LEDC_CHANNEL           LEDC_CHANNEL_0
 #define LEDC_DUTY_RES          LEDC_TIMER_10_BIT
-#define LEDC_FREQUENCY         (5000)
+#define LEDC_FREQUENCY         (20000)
 
 class DroneMotors{
 public:
@@ -28,20 +31,20 @@ o 2     o 3
 
 */
 
-    DroneMotors(gpio_num_t droneMotors[4]);
+    DroneMotors(const gpio_num_t motorPins[4]);
 
-    void testMotor(gpio_num_t pin);
+    void testMotors();
 
     void runMotors(Vec2 direciton, float thrust);
 
-    float DroneMotors::min(float a, float b);
-    float DroneMotors::max(float a, float b);
-    float DroneMotors::minmax(float input, float bottom, float top);
+    float min(float a, float b);
+    float max(float a, float b);
+    float minmax(float input, float bottom, float top);
 
-
+    void initMotors();
 
 private:
 
-    gpio_num_t motors[4]
+    gpio_num_t motors[4];
     
-}
+};
