@@ -40,25 +40,6 @@ vec2 gravityToPitchRoll(vec3 v) {
   return output;
 }
 
-float minmax(float input, float bottom, float top){
-    return(max(min(input,top),bottom));
-}
-
-void outputToMotors(vec2 outputVector, float thrust, float outputScale){
-    
-    outputVector.x = minmax(outputVector.x/outputScale,-1.0f,1.0f);
-    outputVector.y = minmax(outputVector.y/outputScale,-1.0f,1.0f);
-
-    thrust = minmax(thrust,0.0f,1.0f);
-
-    outputVector = outputVector * 1023;
-    
-    ledcWrite(4,static_cast<int>(thrust - outputVector.y + outputVector.x));
-    ledcWrite(2,static_cast<int>(thrust + outputVector.y + outputVector.x));
-    ledcWrite(25,static_cast<int>(thrust - outputVector.y - outputVector.x));
-    ledcWrite(32,static_cast<int>(thrust + outputVector.y - outputVector.x));
-}
-
 void setup() {
     Serial.begin(115200);
     while (!Serial) delay(10);

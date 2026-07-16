@@ -2,33 +2,10 @@
 #include "freertos/task.h"
 #include "driver/gpio.h"
 
-class pid{
-public:
-    pid(float p, float i, float d){
-        this->p = p;
-        this->i = i;
-        this->d = d;
-    }
+#include "Vector.h"
 
-    float update(float pos, float speed, float dt){
-        acc += -dt*pos*i;
-
-        float output = acc - (speed*d) - (pos*p);
-
-        return output;
-    }
-private:
-
-    float acc;
-
-    float p, i, d;
-};
-
-void testMotor(gpio_num_t pin){
-    gpio_set_level(pin, 1);
-    vTaskDelay(pdMS_TO_TICKS(250));
-    gpio_set_level(pin, 0);
-    vTaskDelay(pdMS_TO_TICKS(250));
+void writeMotor(float duty){ 
+    duty = minmax(duty,0,1);
 }
 
 extern "C" void app_main(void)
