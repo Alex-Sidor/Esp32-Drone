@@ -4,6 +4,7 @@
 #include "Motors.h"
 
 #include "Vector.h"
+#include "MPU6050.h"
 
 extern "C" void app_main(void)
 {
@@ -17,10 +18,18 @@ extern "C" void app_main(void)
     DroneMotors m(pins);
 
     m.testMotors();
+
+    vTaskDelay(pdMS_TO_TICKS(2000));
+
+
+    MPU6050 imu;
+
     while(1){
-        for(size_t i = 0; i < 10; i++){
+        imu.update();
+        vTaskDelay(pdMS_TO_TICKS(100));
+        /*for(size_t i = 0; i < 10; i++){
             m.runMotors(Vec2(),((float)i)/10.0f);
             vTaskDelay(pdMS_TO_TICKS(100));
-        }
+        }*/
     }
 }
