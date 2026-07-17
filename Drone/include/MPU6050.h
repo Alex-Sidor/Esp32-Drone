@@ -34,7 +34,7 @@ public:
     Vec3 getAcceleration();
 
 private:
-    float filterGyroBias = 0.99f;
+    float compFilterBias = 0.99f;
 
     int64_t lastTime = 0;
 

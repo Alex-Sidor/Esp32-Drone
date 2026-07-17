@@ -85,12 +85,13 @@ void MPU6050::update(){
     int16_t rawy = (data[2]<<8)|data[3];
     int16_t rawz = (data[4]<<8)|data[5];
 
+    // filter
     Vec3 gyro = Vec3{(float)rawx/16384,(float)rawy/16384,(float)rawz/16384};
-
+    Vec3 gyroPrediction = currentAngle + (gyro*dt);
+    currentAngle = (gyroPrediction*compFilterBias) + ((1-compFilterBias) * getAngleFromAccel(accelerometer)); // complamentry filter
     
-    ESP_LOGI(TAG, "\nx=%.2f\ty=%.2f\tz=%.2f", gyro);
 
-
+    ESP_LOGI(TAG, "\nx=%.2f\ty=%.2f\tz=%.2f", currentAngle);
 }
 
 Vec3 MPU6050::getAngle(){
