@@ -10,6 +10,8 @@
 #include "esp_log.h"
 #include "driver/i2c.h"
 
+#include <math.h>
+
 #define I2C_NUM     I2C_NUM_0
 #define I2C_SCL     GPIO_NUM_22
 #define I2C_SDA     GPIO_NUM_21 
@@ -28,6 +30,11 @@ public:
     Vec3 getAcceleration();
 
 private:
+    float filterGyroBias = 0.99f;
+
+    
+
+
 
     const char* TAG = "MPU6050_I2C";
 
@@ -35,7 +42,7 @@ private:
     esp_err_t mpuWriteReg (uint8_t Reg, uint8_t data);
     static esp_err_t i2c_master_init(void);
 
-    Vec3 getAngleFromAccel(Vec3 accel);
+    Vec3 getAngleFromAccel(Vec3 v);
 
     Vec3 currentAcceleration;
     Vec3 currentRotationalVelocity;

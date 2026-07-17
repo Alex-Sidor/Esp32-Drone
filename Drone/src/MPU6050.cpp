@@ -75,7 +75,10 @@ Vec3 MPU6050::getAcceleration(){
     return currentAcceleration;
 }
 
-Vec3 MPU6050::getAngleFromAccel(Vec3 accel){
-
-    return Vec3();
+Vec3 MPU6050::getAngleFromAccel(Vec3 v){
+    Vec3 out; 
+    out.x = atan2(-v.x, sqrt(v.y * v.y + v.z * v.z));
+    out.y  = atan2(v.y, sqrt(v.x*v.x + v.z*v.z));
+    out.z = 0;
+    return out;
 }
