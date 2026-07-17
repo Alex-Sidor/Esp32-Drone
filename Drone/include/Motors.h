@@ -43,6 +43,8 @@ o 2     o 3
 
     void testMotors();
 
+    void runMotor(int i, float thrust);
+
     void runMotors(Vec2 direciton, float thrust);
 
     float min(float a, float b);

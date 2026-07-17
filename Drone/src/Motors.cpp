@@ -29,11 +29,20 @@ DroneMotors::DroneMotors(const gpio_num_t motorPins[4]){
 
 void DroneMotors::testMotors(){
     for(size_t i = 0; i < 4; i++){
-        gpio_set_level(motors[i], 1);
+        runMotor(motors[i], 1);
         vTaskDelay(pdMS_TO_TICKS(250));
         gpio_set_level(motors[i], 0);
         vTaskDelay(pdMS_TO_TICKS(250));
     }
+}
+
+void DroneMotors::runMotor(int i, float thrust){
+
+    thrust = minmax(thrust, 0, 1);
+    thrust *= LEDC_MAX_NUMBER;
+
+    ESP_ERROR_CHECK(ledc_set_duty(LEDC_MODE, channels[i], static_cast<uint32_t>(thrust)));
+    ESP_ERROR_CHECK(ledc_update_duty(LEDC_MODE, channels[i]));
 }
 
 void DroneMotors::runMotors(Vec2 direciton, float thrust){
