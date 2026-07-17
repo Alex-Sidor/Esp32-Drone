@@ -88,10 +88,13 @@ void MPU6050::update(){
     // filter
     Vec3 gyro = Vec3{(float)rawx/16384,(float)rawy/16384,(float)rawz/16384};
     Vec3 gyroPrediction = currentAngle + (gyro*dt);
-    currentAngle = (gyroPrediction*compFilterBias) + (getAngleFromAccel(accelerometer) * (1-compFilterBias)); // complamentry filter
+
+    Vec3 accelerometerAngle = getAngleFromAccel(accelerometer);
+
+    currentAngle = (gyroPrediction*compFilterBias) + (accelerometerAngle * (1-compFilterBias)); // complamentry filter
     
 
-    ESP_LOGI(TAG, "\nx=%.2f\ty=%.2f\tz=%.2f", currentAngle);
+    ESP_LOGI(TAG, "\nx=%.2f\ty=%.2f\tz=%.2f", accelerometerAngle.x, accelerometerAngle.y, accelerometerAngle.z);
 }
 
 Vec3 MPU6050::getAngle(){
@@ -103,9 +106,11 @@ Vec3 MPU6050::getAcceleration(){
 }
 
 Vec3 MPU6050::getAngleFromAccel(Vec3 v){
+    const float radToDeg = 180.0f / M_PI;
+    
     Vec3 out; 
-    out.x = atan2(-v.x, sqrt(v.y * v.y + v.z * v.z));
-    out.y  = atan2(v.y, sqrt(v.x*v.x + v.z*v.z));
+    out.x = atan2(-v.x, sqrtf(v.y * v.y + v.z * v.z)) * radToDeg;
+    out.y  = atan2(v.y, sqrtf(v.x*v.x + v.z*v.z)) * radToDeg;
     out.z = 0;
     return out;
 }
