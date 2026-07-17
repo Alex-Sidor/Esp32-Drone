@@ -2,6 +2,10 @@
 
 #include "Vector.h"
 
+#include "esp_timer.h"
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
@@ -32,7 +36,9 @@ public:
 private:
     float filterGyroBias = 0.99f;
 
-    
+    int64_t lastTime = 0;
+
+
 
 
 

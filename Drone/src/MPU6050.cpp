@@ -54,17 +54,43 @@ esp_err_t MPU6050::i2c_master_init(void)
 }
 
 void MPU6050::update(){
+    // calculate dt
+
+    
+
+    int64_t currentTime = esp_timer_get_time();
+    int64_t usDT = currentTime - lastTime;
+    float dt = static_cast<float>(usDT) / 1000000.0f;
+
+    if(lastTime == 0){
+        dt = 0;
+    }
+    lastTime = currentTime;
+    
+    // read accelerometer data
+    
     mpuReadfromReg(0x3B, data, 6);
 		
-    int16_t RAWX = (data[0]<<8)|data[1];
-    int16_t RAWY = (data[2]<<8)|data[3];
-    int16_t RAWZ = (data[4]<<8)|data[5];
+    int16_t rawx = (data[0]<<8)|data[1];
+    int16_t rawy = (data[2]<<8)|data[3];
+    int16_t rawz = (data[4]<<8)|data[5];
     
-    float xg = (float)RAWX/16384;
-    float yg = (float)RAWY/16384;
-    float zg = (float)RAWZ/16384;
+    Vec3 accelerometer = Vec3{(float)rawx/16384,(float)rawy/16384,(float)rawz/16384};
+
+    // read gyro data
+
+    mpuReadfromReg(0x43, data, 6);
+	
+    int16_t rawx = (data[0]<<8)|data[1];
+    int16_t rawy = (data[2]<<8)|data[3];
+    int16_t rawz = (data[4]<<8)|data[5];
+
+    Vec3 gyro = Vec3{(float)rawx/16384,(float)rawy/16384,(float)rawz/16384};
+
     
-    ESP_LOGI(TAG, "\nx=%.2f\ty=%.2f\tz=%.2f", xg, yg, zg);
+    ESP_LOGI(TAG, "\nx=%.2f\ty=%.2f\tz=%.2f", gyro);
+
+
 }
 
 Vec3 MPU6050::getAngle(){
