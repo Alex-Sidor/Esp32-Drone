@@ -81,9 +81,9 @@ void MPU6050::update(){
 
     mpuReadfromReg(0x43, data, 6);
 	
-    int16_t rawx = (data[0]<<8)|data[1];
-    int16_t rawy = (data[2]<<8)|data[3];
-    int16_t rawz = (data[4]<<8)|data[5];
+    rawx = (data[0]<<8)|data[1];
+    rawy = (data[2]<<8)|data[3];
+    rawz = (data[4]<<8)|data[5];
 
     // filter
     Vec3 gyro = Vec3{(float)rawx/16384,(float)rawy/16384,(float)rawz/16384};
