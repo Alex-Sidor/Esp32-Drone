@@ -29,10 +29,10 @@ DroneMotors::DroneMotors(const gpio_num_t motorPins[4]){
 
 void DroneMotors::testMotors(){
     for(size_t i = 0; i < 4; i++){
-        runMotor(motors[i], 1);
-        vTaskDelay(pdMS_TO_TICKS(250));
-        gpio_set_level(motors[i], 0);
-        vTaskDelay(pdMS_TO_TICKS(250));
+        runMotor(i, 0.1);
+        vTaskDelay(pdMS_TO_TICKS(100));
+        runMotor(i, 0);
+        vTaskDelay(pdMS_TO_TICKS(400));
     }
 }
 

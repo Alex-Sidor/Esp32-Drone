@@ -16,12 +16,10 @@
 
 #define MPU_ADDR        0x68
 
-static const char *TAG = "MPU6050_I2C";
-
 class MPU6050{
 public:
 
-    MPU6050::MPU6050();
+    MPU6050();
 
     void update();
 
@@ -30,6 +28,8 @@ public:
     Vec3 getAcceleration();
 
 private:
+
+    const char* TAG = "MPU6050_I2C";
 
     esp_err_t mpuReadfromReg (uint8_t Reg, uint8_t *ReadBuffer, size_t len);
     esp_err_t mpuWriteReg (uint8_t Reg, uint8_t data);

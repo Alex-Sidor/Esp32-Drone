@@ -8,6 +8,18 @@
 
 #include "driver/i2c_master.h"
 
+MPU6050::MPU6050(){
+    ESP_ERROR_CHECK(i2c_master_init());
+    ESP_LOGI(TAG, "I2C initialized successfully");
+
+    mpuReadfromReg(0x75, data, 1);
+    ESP_LOGI(TAG, "%X", data[0]);
+    
+    mpuWriteReg(0x6B, 0);
+    mpuWriteReg(0x19, 7); // sample rate 1KHz
+    mpuWriteReg(0x1C, 0);  // ACC FS Range ±2g
+}
+
 esp_err_t MPU6050::mpuReadfromReg (uint8_t Reg, uint8_t *ReadBuffer, size_t len)
 {
 	return (i2c_master_write_read_device(I2C_NUM, MPU_ADDR, &Reg, 1, ReadBuffer, len, 2000));
@@ -41,18 +53,6 @@ esp_err_t MPU6050::i2c_master_init(void)
     return i2c_driver_install(i2c_master_port, conf.mode, 0, 0, 0);
 }
 
-MPU6050::MPU6050(){
-    ESP_ERROR_CHECK(i2c_master_init());
-    ESP_LOGI(TAG, "I2C initialized successfully");
-
-    mpuReadfromReg(0x75, data, 1);
-    ESP_LOGI(TAG, "%X", data[0]);
-    
-    mpuWriteReg(0x6B, 0);
-    mpuWriteReg(0x19, 7); // sample rate 1KHz
-    mpuWriteReg(0x1C, 0);  // ACC FS Range ±2g
-}
-
 void MPU6050::update(){
     mpuReadfromReg(0x3B, data, 6);
 		
@@ -77,5 +77,5 @@ Vec3 MPU6050::getAcceleration(){
 
 Vec3 MPU6050::getAngleFromAccel(Vec3 accel){
 
-
+    return Vec3();
 }
