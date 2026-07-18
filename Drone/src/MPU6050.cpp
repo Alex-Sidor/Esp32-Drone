@@ -75,7 +75,7 @@ void MPU6050::update(){
     int16_t rawy = (data[2]<<8)|data[3];
     int16_t rawz = (data[4]<<8)|data[5];
     
-    Vec3 accelerometer = Vec3{(float)rawx/16384,(float)rawy/16384,(float)rawz/16384};
+    currentAcceleration = Vec3{(float)rawx/16384,(float)rawy/16384,(float)rawz/16384};
 
     // read gyro data
 
@@ -89,7 +89,7 @@ void MPU6050::update(){
     Vec3 gyro = Vec3{(float)rawx/131,(float)rawy/131,(float)rawz/131};
     Vec3 gyroPrediction = currentAngle + (gyro*dt);
 
-    Vec3 accelerometerAngle = getAngleFromAccel(accelerometer);
+    Vec3 accelerometerAngle = getAngleFromAccel(currentAcceleration);
 
     currentAngle = (gyroPrediction*compFilterBias) + (accelerometerAngle * (1-compFilterBias)); // complamentry filter
     
