@@ -26,7 +26,7 @@ extern "C" void app_main(void)
 
     while(1){
         imu.update();
-        vTaskDelay(pdMS_TO_TICKS(100));
+        vTaskDelay(pdMS_TO_TICKS(10));
         /*for(size_t i = 0; i < 10; i++){
             m.runMotors(Vec2(),((float)i)/10.0f);
             vTaskDelay(pdMS_TO_TICKS(100));
