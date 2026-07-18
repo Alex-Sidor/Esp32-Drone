@@ -109,8 +109,8 @@ Vec3 MPU6050::getAngleFromAccel(Vec3 v){
     const float radToDeg = 180.0f / M_PI;
     
     Vec3 out; 
-    out.x = atan2(-v.x, sqrtf(v.y * v.y + v.z * v.z)) * radToDeg;
-    out.y  = atan2(v.y, sqrtf(v.x*v.x + v.z*v.z)) * radToDeg;
+    out.y = atan2(-v.x, sqrtf(v.y * v.y + v.z * v.z)) * radToDeg;
+    out.x  = atan2(v.y, sqrtf(v.x*v.x + v.z*v.z)) * radToDeg;
     out.z = 0;
     return out;
 }
