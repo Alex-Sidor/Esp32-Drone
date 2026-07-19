@@ -28,8 +28,8 @@ extern "C" void app_main(void)
 
     MPU6050 imu;
 
-    PID x(0.000,0,0.1);
-    PID y(0.000,0,0.1);
+    PID x(0.000,0,0.001);
+    PID y(0.000,0,0.001);
 
     while(1){
         imu.update();
