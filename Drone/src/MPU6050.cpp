@@ -86,8 +86,8 @@ void MPU6050::update(){
     rawz = (data[4]<<8)|data[5];
 
     // filter
-    Vec3 gyro = Vec3{(float)rawx/131,(float)rawy/131,(float)rawz/131};
-    Vec3 gyroPrediction = currentAngle + (gyro*dt);
+    currentRotationalVelocity = Vec3{(float)rawx/131,(float)rawy/131,(float)rawz/131};
+    Vec3 gyroPrediction = currentAngle + (currentRotationalVelocity*dt);
 
     Vec3 accelerometerAngle = getAngleFromAccel(currentAcceleration);
 
