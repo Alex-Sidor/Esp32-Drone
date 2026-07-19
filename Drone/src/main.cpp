@@ -3,6 +3,8 @@
 #include "driver/gpio.h"
 #include "Motors.h"
 
+#include "PID.h"
+
 #include "Vector.h"
 #include "MPU6050.h"
 
@@ -24,8 +26,24 @@ extern "C" void app_main(void)
 
     MPU6050 imu;
 
+    PID x(0.2,0.2,0.2);
+    PID y(0.2,0.2,0.2);
+
     while(1){
         imu.update();
+
+        Vec3 a = imu.getAngle();
+        Vec3 r = imu.getRotVel();
+
+        float dt = imu.getDT();
+
+        Vec2 out;
+
+        out.x = x.update(-a.x,r.x,dt);
+        out.y = y.update(-a.y,r.y,dt);
+
+        m.runMotors(out,0.5);
+
         vTaskDelay(pdMS_TO_TICKS(10));
         /*for(size_t i = 0; i < 10; i++){
             m.runMotors(Vec2(),((float)i)/10.0f);

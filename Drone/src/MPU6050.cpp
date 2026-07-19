@@ -60,7 +60,7 @@ void MPU6050::update(){
 
     int64_t currentTime = esp_timer_get_time();
     int64_t usDT = currentTime - lastTime;
-    float dt = static_cast<float>(usDT) / 1000000.0f;
+    dt = static_cast<float>(usDT) / 1000000.0f;
 
     if(lastTime == 0){
         dt = 0;
@@ -101,8 +101,18 @@ Vec3 MPU6050::getAngle(){
     return currentAngle;
 }
 
+Vec3 MPU6050::getRotVel()
+{
+    return currentRotationalVelocity;
+}
+
 Vec3 MPU6050::getAcceleration(){
     return currentAcceleration;
+}
+
+float MPU6050::getDT()
+{
+    return dt;
 }
 
 Vec3 MPU6050::getAngleFromAccel(Vec3 v){

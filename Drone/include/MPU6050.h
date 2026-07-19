@@ -31,15 +31,17 @@ public:
 
     Vec3 getAngle();
 
+    Vec3 getRotVel();
+
     Vec3 getAcceleration();
+
+    float getDT();
 
 private:
     float compFilterBias = 0.99f;
 
     int64_t lastTime = 0;
-
-
-
+    float dt;
 
 
     const char* TAG = "MPU6050_I2C";
