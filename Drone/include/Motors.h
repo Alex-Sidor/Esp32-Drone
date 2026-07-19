@@ -27,17 +27,6 @@ public:
         LEDC_CHANNEL_3
     };
 
-/*
-
-o 2      o 3
-
-    /\
-    ||
-
-o 1     o 0
-
-
-*/
 
     DroneMotors(const gpio_num_t motorPins[4]);
 
@@ -45,7 +34,7 @@ o 1     o 0
 
     void runMotor(int i, float thrust);
 
-    void runMotors(Vec2 direciton, float thrust);
+    void runMotors(Vec2 d, float thrust);
 
     float min(float a, float b);
     float max(float a, float b);

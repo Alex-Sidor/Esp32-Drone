@@ -7,9 +7,9 @@ PID::PID(float p, float i, float d){
 }
 
 float PID::update(float pos, float speed, float dt){
-    acc += -dt*pos*i;
+    acc += dt*pos*i;
 
-    float output = acc - (speed*d) - (pos*p);
+    float output = acc + (speed*d) + (pos*p);
 
     return output;
 }
